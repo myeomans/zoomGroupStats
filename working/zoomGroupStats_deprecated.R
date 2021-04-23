@@ -64,9 +64,29 @@
 
 processZoomMeetingInfo = function(inputPath) {
 
+
+	convDate = function(oldDate) {
+		month = substr(oldDate,1,2)
+		day = substr(oldDate,4,5)
+		year = substr(oldDate,7,10)
+		hour = substr(oldDate,12,13)
+		min = substr(oldDate,15,16)
+		sec = substr(oldDate,18,19)
+		tod = substr(oldDate,21,22)
+		if(tod == "PM" && as.numeric(hour) < 12) {
+			hour = as.character((as.numeric(hour) + 12))
+		}
+		newDate = paste(year,"-", month, "-", day, " ", hour,":",min,":",sec, sep="")
+		return(newDate)
+	}	
+
 	meetInfo = data.frame(read.delim(inputPath, header=T, nrows=1, skip=0, sep=","), stringsAsFactors=F)
 	names(meetInfo) = c("meetingId", "meetingTopic", "meetingStartTime", "meetingEndTime", "userEmail", "meetingDuration", "numParticipants", "blankCol")
 	meetInfo$blankCol = NULL
+	meetInfo$meetingStartTime = convDate(meetInfo$meetingStartTime)
+	meetInfo$meetingEndTime = convDate(meetInfo$meetingEndTime)
+
+	# Change the date column to something more useable in the other functions
 
 	partInfo = data.frame(read.delim(inputPath, header=T, skip=3, sep=","), stringsAsFactors=F)
 	names(partInfo) = c("userName", "userEmail", "userDuration", "userGuest")	
@@ -1260,5 +1280,4 @@ turnTaking = function(inputData, inputType, speakerId) {
 	o.list = list("rawCount" = rawCount, "rawCountNoDiag" = rawCountNoDiag, "pctByConvo" = pctByConvo, "pctBySpeaker" = pctBySpeaker, "dyadData" = dyadData, "indivData" = speakerAgg2)
 	return(o.list)
 }
-
 
