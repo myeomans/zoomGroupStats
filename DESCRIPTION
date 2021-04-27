@@ -1,11 +1,22 @@
-Package: conversations
+Package: zoomGroupStats
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Analyze Text, Audio, and Video from Zoom Meetings
 Version: 0.0.1
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Andrew Knight, Michael Yeomans 
+Maintainer: Andrew Knight <knightap@wustl.edu>
+Description: zoomGroupStats provides utilities for processing and analyzing the files that are exported from a recorded Zoom Meeting. This includes analyzing data captured through video cameras and microphones, the text-based chat, and meta-data. You can analyze aspects of the conversation among meeting participants and their emotional expressions throughout the meeting. 
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.5.0)
+Imports:
+  paws,
+  jsonlite,
+  reshape2,
+  data.table,magick,
+  stringr
+RoxygenNote: 7.1.1
+Suggests: knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
